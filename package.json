@@ -4,8 +4,20 @@
   "private": true,
   "type": "module",
   "description": "Starter kit for Quotebot: one template, one config per client.",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
-    "test": "node --test engine/engine.test.js",
-    "golden": "node validator/run-golden.js clients/example-drywall"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "node --test engine/engine.test.js \"lib/**/*.test.js\"",
+    "golden": "node validator/run-golden.js clients/example-drywall",
+    "live": "node --env-file-if-exists=.env.local validator/run-live.js clients/example-drywall"
+  },
+  "dependencies": {
+    "next": "^16.3.5",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
   }
 }
