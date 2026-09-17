@@ -1,0 +1,11 @@
+{
+  "name": "quotebot-kit",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Starter kit for Quotebot: one template, one config per client.",
+  "scripts": {
+    "test": "node --test engine/engine.test.js",
+    "golden": "node validator/run-golden.js clients/example-drywall"
+  }
+}

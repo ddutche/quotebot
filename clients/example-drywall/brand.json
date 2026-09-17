@@ -1,0 +1,21 @@
+{
+  "client_id": "example-drywall",
+  "business_name": "Example Drywall Co.",
+  "trade": "drywall repair",
+  "logo_url": "assets/logo.svg",
+  "primary_color": "#1F4E79",
+  "font": "Inter",
+  "corners": "rounded",
+  "voice_notes": "Friendly and direct, like a local contractor who picks up the phone.",
+  "tagline": "Drywall repair that blends right in.",
+  "trust_facts": {
+    "_note": "Only real, verified facts from the owner. Leave empty rather than invent.",
+    "licensed_insured": null,
+    "years_in_business": null,
+    "review_rating": null,
+    "review_count": null
+  },
+  "website_url": null,
+  "embed_mode": "widget",
+  "source": "Fake demo client"
+}

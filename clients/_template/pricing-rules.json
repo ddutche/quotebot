@@ -1,0 +1,194 @@
+{
+  "client_id": "replace-with-lowercase-id",
+  "rules_version": "0.1.0",
+  "signed_off_by_owner": false,
+  "_note": "Copy of the drywall example. Replace every field, service, price, and escalation rule with the owner's real rules. Set signed_off_by_owner to true only after the owner signs the rules sheet.",
+  "business": {
+    "name": "REPLACE",
+    "phone": "REPLACE",
+    "service_zips": [
+      "00000"
+    ],
+    "hours": "REPLACE"
+  },
+  "estimate_policy": {
+    "range_low_pct": 0.1,
+    "range_high_pct": 0.2,
+    "round_to": 25,
+    "minimum_job": 250,
+    "disclaimer": "This is an estimate, not a final quote. Your final price is confirmed after we see the job in person."
+  },
+  "fields": [
+    {
+      "id": "service_id",
+      "type": "enum",
+      "options": [
+        "patch_small",
+        "patch_medium",
+        "sheet_replace"
+      ],
+      "required": true,
+      "ask": "What kind of damage is it: a small hole, a bigger patch, or a whole section that needs replacing?"
+    },
+    {
+      "id": "quantity",
+      "type": "number",
+      "required": true,
+      "ask": "How many holes are there? (For a whole section, about how many square feet?)"
+    },
+    {
+      "id": "location",
+      "type": "enum",
+      "options": [
+        "wall",
+        "ceiling"
+      ],
+      "required": true,
+      "ask": "Is the damage on a wall or the ceiling?"
+    },
+    {
+      "id": "texture",
+      "type": "enum",
+      "options": [
+        "smooth",
+        "orange_peel",
+        "knockdown",
+        "popcorn"
+      ],
+      "required": true,
+      "ask": "Is the wall smooth, or does it have a texture (bumpy like an orange peel, flattened splotches, or popcorn)?"
+    },
+    {
+      "id": "paint_included",
+      "type": "boolean",
+      "required": true,
+      "ask": "Do you want us to paint the repaired area too?"
+    },
+    {
+      "id": "zip",
+      "type": "string",
+      "required": true,
+      "ask": "What's the ZIP code for the job?"
+    },
+    {
+      "id": "water_damage",
+      "type": "boolean",
+      "required": true,
+      "ask": "Any signs of water damage, like stains, soft spots, or a musty smell?"
+    },
+    {
+      "id": "built_before_1980",
+      "type": "enum",
+      "options": [
+        "yes",
+        "no",
+        "unknown"
+      ],
+      "required": false,
+      "ask": "Do you know if the home was built before 1980?"
+    },
+    {
+      "id": "photo_matches_description",
+      "type": "enum",
+      "options": [
+        "yes",
+        "no",
+        "no_photo"
+      ],
+      "required": false,
+      "ask": null
+    }
+  ],
+  "services": [
+    {
+      "id": "patch_small",
+      "label": "Small hole patch (under 6 in)",
+      "unit": "each",
+      "unit_price": 95,
+      "max_quantity": 6
+    },
+    {
+      "id": "patch_medium",
+      "label": "Medium patch (6 to 24 in)",
+      "unit": "each",
+      "unit_price": 175,
+      "max_quantity": 4
+    },
+    {
+      "id": "sheet_replace",
+      "label": "Drywall replacement",
+      "unit": "sq_ft",
+      "unit_price": 7,
+      "max_quantity": 160
+    }
+  ],
+  "modifiers": [
+    {
+      "id": "ceiling",
+      "label": "Ceiling work",
+      "when": {
+        "field": "location",
+        "equals": "ceiling"
+      },
+      "multiply": 1.25
+    },
+    {
+      "id": "texture_match",
+      "label": "Texture matching",
+      "when": {
+        "field": "texture",
+        "in": [
+          "orange_peel",
+          "knockdown"
+        ]
+      },
+      "add": 75
+    },
+    {
+      "id": "paint",
+      "label": "Paint repaired area",
+      "when": {
+        "field": "paint_included",
+        "equals": true
+      },
+      "add": 90
+    }
+  ],
+  "fees": [
+    {
+      "id": "trip",
+      "label": "Trip fee",
+      "amount": 50
+    }
+  ],
+  "escalate_if": [
+    {
+      "when": {
+        "field": "water_damage",
+        "equals": true
+      },
+      "reason": "Possible water damage. The source needs to be found before repair."
+    },
+    {
+      "when": {
+        "field": "texture",
+        "equals": "popcorn"
+      },
+      "reason": "Popcorn ceilings may need testing before work starts."
+    },
+    {
+      "when": {
+        "field": "built_before_1980",
+        "equals": "yes"
+      },
+      "reason": "Older home. Materials may need testing before work starts."
+    },
+    {
+      "when": {
+        "field": "photo_matches_description",
+        "equals": "no"
+      },
+      "reason": "Photo does not match the description."
+    }
+  ]
+}

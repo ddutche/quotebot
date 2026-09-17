@@ -1,0 +1,21 @@
+{
+  "client_id": "REPLACE-with-lowercase-id",
+  "business_name": "REPLACE",
+  "trade": "REPLACE",
+  "logo_url": null,
+  "primary_color": "#REPLACE",
+  "font": "Inter",
+  "corners": "rounded",
+  "voice_notes": "REPLACE: 1 sentence on how the owner talks",
+  "tagline": null,
+  "trust_facts": {
+    "_note": "Only real, verified facts from the owner. Leave empty rather than invent.",
+    "licensed_insured": null,
+    "years_in_business": null,
+    "review_rating": null,
+    "review_count": null
+  },
+  "website_url": null,
+  "embed_mode": "widget",
+  "source": "REPLACE: where these facts came from (owner call, their website, etc.)"
+}

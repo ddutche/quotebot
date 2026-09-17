@@ -1,0 +1,24 @@
+{
+  "_note": "OpenAI-compatible tool definition (works with most providers, including OpenRouter). Generate 'properties' from the client's pricing-rules.json fields so every client uses the same code path. This file shows the drywall example.",
+  "type": "function",
+  "function": {
+    "name": "get_estimate",
+    "description": "Calculates the price estimate using the business's pricing rules. Call only when you have the details. Use null for anything the customer has not told you.",
+    "parameters": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["service_id", "quantity", "location", "texture", "paint_included", "zip", "water_damage", "built_before_1980", "photo_matches_description"],
+      "properties": {
+        "service_id": { "type": ["string", "null"], "enum": ["patch_small", "patch_medium", "sheet_replace", null] },
+        "quantity": { "type": ["number", "null"], "description": "Number of holes, or square feet for sheet_replace" },
+        "location": { "type": ["string", "null"], "enum": ["wall", "ceiling", null] },
+        "texture": { "type": ["string", "null"], "enum": ["smooth", "orange_peel", "knockdown", "popcorn", null] },
+        "paint_included": { "type": ["boolean", "null"] },
+        "zip": { "type": ["string", "null"] },
+        "water_damage": { "type": ["boolean", "null"] },
+        "built_before_1980": { "type": ["string", "null"], "enum": ["yes", "no", "unknown", null] },
+        "photo_matches_description": { "type": ["string", "null"], "enum": ["yes", "no", "no_photo", null] }
+      }
+    }
+  }
+}
