@@ -4,6 +4,13 @@ Newest first. **Only Donny adds "Decided" entries.** Claude Code may add "Propos
 
 | Date | Decision | Status | Source |
 |---|---|---|---|
+| Sep 19, 2026 | `vercel.json` sets the framework to Next.js. The Vercel project was imported before the repo was a Next.js app. | Proposed | Donny (chat) |
+| Sep 19, 2026 | Phase 2 photos go only with the message they're attached to. Later turns get a text note. Phase 3 moves photos to Supabase Storage. | Proposed | Donny (chat) |
+| Sep 19, 2026 | Phase 2 lead form: demo clients get an honest "Demo: in the live version, the owner gets these details right away." Nothing is saved or sent until Phase 3. | Proposed | Donny (chat) |
+| Sep 19, 2026 | Demo clients don't get a made-up logo. `logo_url` stays empty and the business name shows as text. | Proposed | Donny (chat) |
+| Sep 19, 2026 | Phase 0 is done: private repo pushed, GitHub, Vercel, and Supabase set up | Proposed | Donny (chat) |
+| Sep 19, 2026 | Node 22 is the minimum. `BUILD_PLAN.md` still says Node 20; this replaces that. | Proposed | Donny (chat) |
+| Sep 19, 2026 | Build in test mode until the OpenRouter and OpenAI keys exist. Test mode is a scripted stand-in that still uses the real engine and guard. Production never uses it. | Proposed | Donny (chat) |
 | Sep 17, 2026 | Claude Code gets the full plan through `docs/PROJECT_BRIEF.md` (auto-loaded) and this log; long docs live in `docs/plan/` | Adopted | Donny's request |
 | Sep 16, 2026 | Claude Code does the git, GitHub, and Supabase work on Donny's computer; Donny approves every command and merges every pull request | Decided | Donny |
 | Sep 16, 2026 | Workflow: one branch per task, pull requests, tests before commits, database changes only as migration files to **staging** | Adopted | Setup guide |

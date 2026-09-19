@@ -1,7 +1,7 @@
 # Quotebot: Project Brief
 
 **Source of truth for Claude Code.** Loaded at the start of every session through `CLAUDE.md`.
-**Last updated:** Sep 17, 2026 by Donny
+**Last updated:** Sep 19, 2026 by Claude Code (proposed changes, waiting on Donny)
 **If anything in `docs/plan/` disagrees with this file or `docs/DECISIONS.md`, these two win.** If still unclear, ask Donny. Don't guess.
 
 ---
@@ -68,6 +68,7 @@ The final presentation date is not set in this repo yet.
   - `npm test` for the engine and guard.
   - `npm run golden` runs each client's test cases through the engine.
   - Phase 1 adds a live test run where the chatbot plays every test case and GPT grades it with `validator/RUBRIC.md` (pass/fail).
+  - Until the model keys exist, local dev runs in test mode: a scripted stand-in bot with the real engine and guard.
 
 ---
 
@@ -77,9 +78,9 @@ Details and "done" checks are in `docs/BUILD_PLAN.md`.
 
 | Phase | What | Status |
 |---|---|---|
-| 0 | Setup: Node, Git, GitHub repo, accounts, test keys | In progress |
-| 1 | Bot brain: Next.js app, `/api/chat`, test chat page, live test runner | Next |
-| 2 | Customer widget + branded demo page + real test photos | Not started |
+| 0 | Setup: Node, Git, GitHub repo, accounts, test keys | Done |
+| 1 | Bot brain: Next.js app, `/api/chat`, test chat page, live test runner | In progress: foundation merged in PR #1; the live model test waits on keys |
+| 2 | Customer widget + branded demo page + real test photos | In progress |
 | 3 | Supabase tables + RLS, saved chats, photo storage, lead emails, abuse limits | Not started |
 | 4 | Live demo on a Vercel preview link (the MBA 571 version) | Not started |
 
@@ -137,3 +138,4 @@ Read the `docs/plan/` files only when a task needs that detail. They are long.
 6. Domain name (needed before Phase 3 email)
 7. MBA 571 presentation date
 8. Whether the team continues after the class, and who owns what
+9. Default font: keep Inter, or pick one on purpose before showing the demo page
