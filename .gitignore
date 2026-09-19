@@ -4,3 +4,6 @@ node_modules/
 !.env.example
 .vercel/
 .DS_Store
+.next/
+next-env.d.ts
+validator/runs/
