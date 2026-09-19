@@ -8,7 +8,10 @@
     "node": ">=22"
   },
   "scripts": {
+    "build:widget": "node scripts/build-widget.mjs",
+    "predev": "node scripts/build-widget.mjs",
     "dev": "next dev",
+    "prebuild": "node scripts/build-widget.mjs",
     "build": "next build",
     "start": "next start",
     "test": "node --test engine/engine.test.js \"lib/**/*.test.js\"",
