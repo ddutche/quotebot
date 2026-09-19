@@ -95,7 +95,7 @@
     '*, *::before, *::after { box-sizing: border-box; }',
     '.qb-root { font-family: var(--qb-font); color: var(--qb-color-text); font-size: var(--qb-text-base);',
     '  line-height: var(--qb-leading-normal); font-weight: var(--qb-weight-regular); position: relative; }',
-    'button, input, select { font: inherit; color: inherit; }',
+    'button, input, select, textarea { font: inherit; color: inherit; }',
     'a { color: inherit; }',
 
     ':host(.qb-floating) { position: fixed; right: var(--qb-space-5); bottom: var(--qb-space-5);',
@@ -138,7 +138,7 @@
     '.qb-close-btn:hover { background: var(--qb-color-surface-muted); }',
     '.qb-close-btn:focus-visible { outline: 1px solid var(--qb-color-brand); outline-offset: 1px; }',
 
-    '.qb-messages { flex: 1 1 auto; overflow-y: auto; padding: var(--qb-space-4); display: flex; flex-direction: column;',
+    '.qb-messages { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: var(--qb-space-4); display: flex; flex-direction: column;',
     '  gap: var(--qb-space-3); }',
     '.qb-row { display: flex; flex-direction: column; gap: var(--qb-space-2); max-width: 100%; }',
     '.qb-row-assistant { align-items: flex-start; }',
@@ -207,11 +207,13 @@
     '  font-size: var(--qb-text-sm); line-height: var(--qb-leading-tight); cursor: pointer; padding: 0; }',
     '.qb-tray-notice { font-size: var(--qb-text-sm); color: var(--qb-color-text-muted); margin: var(--qb-space-2) 0 0 0; }',
 
-    '.qb-input-bar { display: flex; align-items: center; gap: var(--qb-space-2); padding: var(--qb-space-4);',
+    '.qb-input-bar { display: flex; align-items: flex-end; gap: var(--qb-space-2); padding: var(--qb-space-4);',
     '  border-top: 1px solid var(--qb-color-border); flex: 0 0 auto; }',
-    '.qb-text-input { flex: 1 1 auto; min-width: 0; min-height: var(--qb-tap-target); padding: var(--qb-space-2) var(--qb-space-3);',
-    '  border: 1px solid var(--qb-color-border); border-radius: var(--qb-radius-md); background: var(--qb-color-surface);',
-    '  font-size: var(--qb-text-base); color: var(--qb-color-text); }',
+    '.qb-text-input { flex: 1 1 auto; min-width: 0; min-height: var(--qb-tap-target);',
+    '  max-height: calc(var(--qb-text-base) * var(--qb-leading-normal) * 5 + var(--qb-space-2) * 2);',
+    '  padding: var(--qb-space-2) var(--qb-space-3); border: 1px solid var(--qb-color-border); border-radius: var(--qb-radius-md);',
+    '  background: var(--qb-color-surface); color: var(--qb-color-text); font: inherit; line-height: var(--qb-leading-normal);',
+    '  resize: none; overflow-y: hidden; box-sizing: border-box; }',
     '.qb-text-input:focus-visible { outline: 1px solid var(--qb-color-brand); outline-offset: 1px; }',
     '.qb-icon-btn { flex: 0 0 auto; min-width: var(--qb-tap-target); min-height: var(--qb-tap-target);',
     '  padding: var(--qb-space-2) var(--qb-space-3); border: 1px solid var(--qb-color-border); border-radius: var(--qb-radius-md);',
@@ -338,10 +340,12 @@
         var form = document.createElement("form");
         form.className = "qb-input-bar";
 
-        var textInput = document.createElement("input");
-        textInput.type = "text";
+        var textInput = document.createElement("textarea");
+        textInput.rows = 1;
         textInput.className = "qb-text-input";
         textInput.setAttribute("aria-label", "Message");
+        textInput.setAttribute("maxlength", "2000");
+        textInput.setAttribute("enterkeyhint", "send");
         textInput.placeholder = "Describe the job";
 
         var photoBtn = document.createElement("button");
@@ -375,16 +379,21 @@
           self._onFileChange(e);
         });
         // Explicit Enter handling: implicit form submit isn't reliable on every host page.
+        // Enter sends; Shift+Enter inserts a newline (default textarea behavior, so just skip send).
         textInput.addEventListener("keydown", function (e) {
-          if (e.key === "Enter" && !e.isComposing) {
+          if (e.key === "Enter" && !e.isComposing && !e.shiftKey) {
             e.preventDefault();
             form.requestSubmit();
           }
+        });
+        textInput.addEventListener("input", function () {
+          self._autoGrowInput();
         });
         form.addEventListener("submit", function (e) {
           e.preventDefault();
           var text = textInput.value;
           textInput.value = "";
+          self._autoGrowInput();
           self._send(text);
         });
 
@@ -499,6 +508,23 @@
 
       _focusInput() {
         if (this._textInput) this._textInput.focus();
+      }
+
+      // Grows the textarea to fit its content, up to the CSS max-height (about 5 lines),
+      // then lets it scroll internally instead of growing further.
+      _autoGrowInput() {
+        var el = this._textInput;
+        if (!el) return;
+        el.style.height = "auto";
+        var maxHeight = parseFloat(getComputedStyle(el).maxHeight);
+        var next = el.scrollHeight;
+        if (isFinite(maxHeight) && next > maxHeight) {
+          el.style.height = maxHeight + "px";
+          el.style.overflowY = "auto";
+        } else {
+          el.style.height = next + "px";
+          el.style.overflowY = "hidden";
+        }
       }
 
       _setInputDisabled(disabled) {
