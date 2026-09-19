@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quotebot widget embed test</title>
+<style>
+  /* Deliberately hostile host-page CSS. If the widget still looks right, the Shadow DOM held. */
+  * { font-family: "Times New Roman", serif !important; }
+  button { background: red !important; color: yellow !important; }
+  div { border: 2px dashed green; }
+</style>
+</head>
+<body>
+  <h1>Plain host page</h1>
+  <p>This page exists only to prove the Quotebot widget survives a hostile host stylesheet. The styles above force every element to Times New Roman, paint every button red on yellow, and outline every div in dashed green.</p>
+  <p>If the chat launcher in the bottom-right corner still uses the client's own font, brand color, and rounded corners, the widget's Shadow DOM is isolating it correctly from this page's CSS.</p>
+  <p>Nothing else on this page matters. Open the chat, send a message, attach a photo, and try the estimate flow to confirm it behaves normally despite the mess above.</p>
+
+  <script src="/widget.js" data-client="example-drywall" async></script>
+</body>
+</html>

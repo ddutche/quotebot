@@ -17,5 +17,6 @@
   },
   "website_url": null,
   "embed_mode": "widget",
+  "is_demo": false,
   "source": "REPLACE: where these facts came from (owner call, their website, etc.)"
 }

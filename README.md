@@ -51,7 +51,9 @@ During testing, a GPT model grades every test chat using `validator/RUBRIC.md`.
 | `.claude/commands/` | `/plan-check` and `/log-decision` for Claude Code | Ready |
 | `lib/`, `app/api/chat/` | Chat backend: rules loading, prompt builder, theme, model connection, test mode | Phase 1 |
 | `app/dev/` | Team test chat page (hidden in production) | Phase 1 |
-| `widget/`, `app/demo/` | Not built yet | Phase 2 |
+| `widget/widget.js` | Embeddable chat widget, one script tag (copied to `public/widget.js` on dev/build) | Phase 2 |
+| `app/demo/[clientId]/` | Branded demo page, chat open inline | Phase 2 |
+| `app/api/client/`, `app/api/lead/` | Public branding for the widget; lead form checks (saving comes in Phase 3) | Phase 2 |
 
 ## Spending caps
 
@@ -71,7 +73,8 @@ Fill this in as accounts are created. Every paid account needs a cap before go-l
 npm install       # once
 npm test          # engine, guard, and lib tests
 npm run golden    # 11 drywall test cases through the engine
-npm run dev       # app at http://localhost:3000, test chat at /dev
+npm run dev       # app at http://localhost:3000, test chat at /dev,
+                  # demo page at /demo/example-drywall, bare embed at /embed-test.html
 npm run live      # with the app running: plays the golden set through /api/chat
 ```
 

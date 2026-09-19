@@ -2,7 +2,7 @@
   "client_id": "example-drywall",
   "business_name": "Example Drywall Co.",
   "trade": "drywall repair",
-  "logo_url": "assets/logo.svg",
+  "logo_url": null,
   "primary_color": "#1F4E79",
   "font": "Inter",
   "corners": "rounded",
@@ -17,5 +17,6 @@
   },
   "website_url": null,
   "embed_mode": "widget",
+  "is_demo": true,
   "source": "Fake demo client"
 }

@@ -7,3 +7,5 @@ node_modules/
 .next/
 next-env.d.ts
 validator/runs/
+# Built from widget/widget.js by scripts/build-widget.mjs
+public/widget.js
