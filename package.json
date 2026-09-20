@@ -16,7 +16,8 @@
     "start": "next start",
     "test": "node --test engine/engine.test.js \"lib/**/*.test.js\"",
     "golden": "node validator/run-golden.js clients/example-drywall",
-    "live": "node --env-file-if-exists=.env.local validator/run-live.js clients/example-drywall"
+    "live": "node --env-file-if-exists=.env.local validator/run-live.js clients/example-drywall",
+    "push-rules": "node --env-file-if-exists=.env.local scripts/push-rules.mjs"
   },
   "dependencies": {
     "next": "^16.3.5",

@@ -80,6 +80,18 @@ npm run live      # with the app running: plays the golden set through /api/chat
 
 Needs Node 22 or newer.
 
+## Database (Phase 3, staging only)
+
+Tables live in `supabase/migrations/`. Nothing is applied automatically.
+
+1. In Supabase, open the **quotebot-staging** project (never production).
+2. Apply the migrations, either with `npx supabase login`, `npx supabase link --project-ref <ref>`, `npx supabase db push`, or by pasting each file into the SQL editor in order.
+3. Put `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SECRET_KEY`, and a long random `VISITOR_SALT` in `.env.local`.
+4. Upload a client's rules: `npm run push-rules clients/example-drywall`.
+5. Check Supabase's security advisor. It should report no warnings.
+
+With no Supabase settings, everything still runs: chats just aren't saved, and pricing uses the rules files. The secret key is server-only and must never reach browser code.
+
 **Test mode.** With no `OPENROUTER_API_KEY`, local dev runs a scripted stand-in for the chatbot. It asks the questions from the client's rules one at a time and still runs the real pricing engine and guard, so the whole app can be built before the keys exist. It can't understand free text, so `npm run live` results in test mode only prove the harness works. Production never falls back to test mode.
 
 ## Where to start
