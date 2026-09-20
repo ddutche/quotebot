@@ -90,6 +90,10 @@ Tables live in `supabase/migrations/`. Nothing is applied automatically.
 4. Upload a client's rules: `npm run push-rules clients/example-drywall`.
 5. Check Supabase's security advisor. It should report no warnings.
 
+**Photos.** The third migration makes a private `chat-photos` bucket. The browser shrinks a photo, asks `/api/upload-url` for a one-time link, and uploads straight to Storage. Our server never carries the file. To show a photo to the model, the server mints a read link that expires in 10 minutes. With no storage set up, the widget sends photos inline instead, exactly as before.
+
+**Abuse limits.** A client with no rows in `client_domains` works on any website, which is how we demo. Add rows and only those websites can use that client's widget. Each visitor can start 10 chats a day per client, and any one chat is capped at 30 messages. Every check fails open: if the database can't answer, the chat still works.
+
 With no Supabase settings, everything still runs: chats just aren't saved, and pricing uses the rules files. The secret key is server-only and must never reach browser code.
 
 **Test mode.** With no `OPENROUTER_API_KEY`, local dev runs a scripted stand-in for the chatbot. It asks the questions from the client's rules one at a time and still runs the real pricing engine and guard, so the whole app can be built before the keys exist. It can't understand free text, so `npm run live` results in test mode only prove the harness works. Production never falls back to test mode.
