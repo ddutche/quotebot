@@ -145,6 +145,7 @@ function EstimateCard({ outcome }) {
 export default function DevChat({ clientId, businessName, phone }) {
   const [messages, setMessages] = useState([]);
   const [job, setJob] = useState(null);
+  const [conversationId, setConversationId] = useState(null);
   const [last, setLast] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -172,7 +173,7 @@ export default function DevChat({ clientId, businessName, phone }) {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ clientId, messages: nextMessages, job }),
+        body: JSON.stringify({ clientId, messages: nextMessages, job, conversationId }),
       });
       const data = await res.json().catch(() => null);
       if (!res.ok || !data) {
@@ -182,6 +183,7 @@ export default function DevChat({ clientId, businessName, phone }) {
       }
       setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
       setJob(data.job ?? null);
+      if (data.conversation_id) setConversationId(data.conversation_id);
       setLast(data);
       setLoading(false);
       scrollToBottom();
@@ -201,6 +203,7 @@ export default function DevChat({ clientId, businessName, phone }) {
   function handleReset() {
     setMessages([]);
     setJob(null);
+    setConversationId(null);
     setLast(null);
     setLoading(false);
     setError(null);

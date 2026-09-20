@@ -241,6 +241,7 @@
           config: null,
           turns: [], // { role, content, photoCount }
           job: null,
+          conversationId: null, // set by the server so the whole chat saves as one thread
           open: false,
           loading: false,
           pendingPhotos: [], // { dataUrl }
@@ -1039,6 +1040,7 @@
               clientId: this._clientId,
               messages: wireMessages,
               job: this._state.job,
+              conversationId: this._state.conversationId,
               photos: photos.map(function (p) { return p.dataUrl; }),
             }),
           });
@@ -1057,6 +1059,7 @@
         this._state.loading = false;
         this._setInputDisabled(false);
         this._state.job = data.job != null ? data.job : this._state.job;
+        if (data.conversation_id) this._state.conversationId = data.conversation_id;
         this._state.turns.push({ role: "assistant", content: data.reply, photoCount: 0 });
 
         var row = this._appendBotBubble(data.reply);
