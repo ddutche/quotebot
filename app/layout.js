@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "Quotebot",
-  description: "Instant estimates for home service businesses.",
+  title: "Scoparity",
+  description: "Itemized estimates for home service businesses, confirmed by the contractor.",
   robots: { index: false, follow: false },
 };
 

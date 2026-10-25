@@ -54,6 +54,10 @@ During testing, a GPT model grades every test chat using `validator/RUBRIC.md`.
 | `widget/widget.js` | Embeddable chat widget, one script tag (copied to `public/widget.js` on dev/build) | Phase 2 |
 | `app/demo/[clientId]/` | Branded demo page, chat open inline | Phase 2 |
 | `app/api/client/`, `app/api/lead/` | Public branding for the widget; lead form checks (saving comes in Phase 3) | Phase 2 |
+| `app/page.js`, `app/_scoparity/` | Scoparity company site at `/`; its sample estimate is priced by the engine | Ready |
+| `app/example-customer/` | Fictional contractor site (`/example-customer`) with the widget installed by one script tag | Ready |
+| `clients/brightwater-drywall/` | Fictional Long Island client for the sample site (copy of the drywall rules, Suffolk ZIPs) | Working (fake numbers) |
+| `public/brand/` | Scoparity logo files (transparent PNG, plus white versions for dark backgrounds) | Ready |
 
 ## Spending caps
 
