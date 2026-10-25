@@ -3,8 +3,8 @@
 // The look is deliberately the classic small-contractor site (charcoal and construction yellow,
 // condensed caps, big phone number, "free estimate" box) so it reads as someone else's business.
 // Brightwater Drywall & Paint is not a real business (golden rule 3): no logo, reviews, ratings,
-// years in business, or license claims, and a visible banner says so. Phone is in the 555-01xx
-// fiction range. Business details come from clients/brightwater-drywall so the page and chat agree.
+// years in business, or license claims, and a visible banner says so. The phone number is a
+// placeholder, (XXX) XXX-XXXX. Business details come from clients/brightwater-drywall so the page and chat agree.
 
 import Script from "next/script";
 import localFont from "next/font/local";
