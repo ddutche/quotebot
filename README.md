@@ -1,6 +1,6 @@
 # Quotebot starter kit (v0.1)
 
-A starting repo for building Quotebot with Claude Code: Opus plans and reviews, Sonnet and Haiku agents do the work.
+A starting repo for building Quotebot with Claude Code: Opus plans and reviews, Sonnet and Haiku agents do the work. 
 
 **The one idea to remember:** build the widget, demo page, engine, and prompt **once**. Each new client is just a folder of settings in `clients/`. That's what makes it repeatable and cheap.
 
