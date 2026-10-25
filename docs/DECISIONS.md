@@ -4,6 +4,9 @@ Newest first. **Only Donny adds "Decided" entries.** Claude Code may add "Propos
 
 | Date | Decision | Status | Source |
 |---|---|---|---|
+| Oct 25, 2026 | The company name is Scoparity (scope + clarity); the checkbox logo with the teal check is the primary mark. `/` is now the Scoparity company site instead of a redirect to the demo. | Proposed | Donny (chat) |
+| Oct 25, 2026 | Sample contractor site at `/example-customer` uses a new fictional client, `brightwater-drywall` (Suffolk ZIPs, 555-01xx phone), so the demo matches the Long Island plan. | Proposed | Donny (chat) |
+| Oct 25, 2026 | The widget element gets a public `open()` method so a host page's own "Get a price" button can open the chat. | Proposed | Donny (chat) |
 | Sep 19, 2026 | `vercel.json` sets the framework to Next.js. The Vercel project was imported before the repo was a Next.js app. | Proposed | Donny (chat) |
 | Sep 19, 2026 | Phase 2 photos go only with the message they're attached to. Later turns get a text note. Phase 3 moves photos to Supabase Storage. | Proposed | Donny (chat) |
 | Sep 19, 2026 | Phase 2 lead form: demo clients get an honest "Demo: in the live version, the owner gets these details right away." Nothing is saved or sent until Phase 3. | Proposed | Donny (chat) |

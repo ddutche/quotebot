@@ -7,10 +7,9 @@ const nextConfig = {
     "/api/lead": ["./clients/**/*"],
     "/demo/[clientId]": ["./clients/**/*", "./design/**/*"],
     "/dev": ["./clients/**/*", "./design/**/*"],
-  },
-  // No home page yet: send visitors to the demo. Temporary (307) so a real home page can replace it.
-  async redirects() {
-    return [{ source: "/", destination: "/demo/example-drywall", permanent: false }];
+    // The home page prices its sample estimate with the real engine.
+    "/": ["./clients/brightwater-drywall/**/*"],
+    "/example-customer": ["./clients/brightwater-drywall/**/*"],
   },
 };
 

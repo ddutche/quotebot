@@ -489,6 +489,11 @@
 
       // -- open / close ---------------------------------------------------
 
+      // Public, so a host page's own "Get a price" button can open the chat.
+      open() {
+        if (this._panelEl) this._open();
+      }
+
       _open() {
         if (this._state.open) return;
         this._state.open = true;
