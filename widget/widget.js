@@ -869,6 +869,7 @@
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
                 clientId: self._clientId,
+                conversationId: self._state.conversationId,
                 name: nameInput.value,
                 phone: phoneInput.value,
                 best_time: timeSelect.value,
@@ -1005,6 +1006,73 @@
         }
       }
 
+      // -- photo upload -----------------------------------------------------
+
+      /**
+       * Tries to upload one already-shrunk photo straight to storage.
+       * Returns the storage path on success, or null if it should be sent inline instead
+       * (storage not set up, over the per-chat limit, or any network/upload failure).
+       */
+      async _uploadOnePhoto(photo) {
+        try {
+          var blob = await (await fetch(photo.dataUrl)).blob();
+          var res = await fetch(this._base + "/api/upload-url", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              clientId: this._clientId,
+              conversationId: this._state.conversationId,
+              bytes: blob.size,
+            }),
+          });
+          if (res.status === 429) {
+            this._state.photoNotice = "limit";
+            this._renderPhotoTray();
+            return null;
+          }
+          if (!res.ok) return null;
+          var link = await res.json();
+          var putRes = await fetch(link.uploadUrl, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "image/jpeg",
+              Authorization: "Bearer " + link.token,
+              "x-upsert": "false",
+            },
+            body: blob,
+          });
+          if (!putRes.ok) return null;
+          return link.path;
+        } catch (e) {
+          return null;
+        }
+      }
+
+      /**
+       * Uploads every pending photo when a conversation already exists, falling back to
+       * sending it inline (as today) for any photo that isn't uploaded. A photo is never
+       * sent both ways.
+       */
+      async _uploadPhotos(photos) {
+        var inline = [];
+        var paths = [];
+        if (!photos.length) return { inline: inline, paths: paths };
+
+        if (!this._state.conversationId) {
+          // No conversation yet (first message of the chat): skip the upload attempt so we
+          // don't block sending, and use today's inline behavior.
+          for (var j = 0; j < photos.length; j++) inline.push(photos[j].dataUrl);
+          return { inline: inline, paths: paths };
+        }
+
+        for (var i = 0; i < photos.length; i++) {
+          var path = await this._uploadOnePhoto(photos[i]);
+          if (path) paths.push(path);
+          else inline.push(photos[i].dataUrl);
+        }
+        return { inline: inline, paths: paths };
+      }
+
       // -- sending --------------------------------------------------------
 
       async _send(text) {
@@ -1036,6 +1104,10 @@
         this._setInputDisabled(true);
         var loadingRow = this._appendLoadingBubble();
 
+        // Upload takes a moment, so it happens while the loading bubble is showing. The sent
+        // bubble already has its thumbnails (from the local data URLs), so this doesn't touch it.
+        var uploaded = await this._uploadPhotos(photos);
+
         var data;
         try {
           var res = await fetch(this._base + "/api/chat", {
@@ -1046,7 +1118,8 @@
               messages: wireMessages,
               job: this._state.job,
               conversationId: this._state.conversationId,
-              photos: photos.map(function (p) { return p.dataUrl; }),
+              photos: uploaded.inline,
+              photo_paths: uploaded.paths,
             }),
           });
           if (!res.ok) throw new Error("chat failed");
