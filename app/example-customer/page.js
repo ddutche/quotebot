@@ -5,11 +5,15 @@
 // Business details come from clients/brightwater-drywall so the page and the chat always agree.
 
 import Script from "next/script";
-import { Work_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import { loadClient } from "../../lib/rules.js";
 import OpenChatButton from "./OpenChatButton.js";
 
-const workSans = Work_Sans({ subsets: ["latin"], weight: ["400", "600"], display: "swap" });
+// Self-hosted (app/_fonts) so the build doesn't depend on reaching Google Fonts.
+const workSans = localFont({
+  src: [{ path: "../_fonts/work-sans-variable.woff2", weight: "100 900", style: "normal" }],
+  display: "swap",
+});
 
 const CLIENT_ID = "brightwater-drywall";
 
